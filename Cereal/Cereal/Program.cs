@@ -8,7 +8,7 @@ namespace Cereal
     {
         static void Main(string[] args)
         {
-            {
+            
                 string[] linesofData = File.ReadAllLines("Cereal_Data.txt");
                 List<Cereal> CerealName = new List<Cereal>();
                 string Cname = "";
@@ -25,34 +25,36 @@ namespace Cereal
                     Mname = partofLine[1];
                     calories = Convert.ToDouble(partofLine[2]);
                     cup = Convert.ToDouble(partofLine[3]);
-                    if (cup >= 1)
-                    {
+
                         Cereal C = new Cereal();
                         C.Manufacturer = Mname;
                         C.Name = Cname;
                         C.Calories = calories;
                         C.Cups = cup;
                         CerealName.Add(C);
-                    }
                 }
-                for (int i = 0; i < CerealName.Count; i++)
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("Cereals with a serving size less than or equal to 1, >>");
+            Console.ForegroundColor = ConsoleColor.White;
+            foreach (Cereal cereal in CerealName)
                 {
-                    if (calories <= 100)
+                    if (cereal.Cups >=1)
                     {
-                        calNote = ".This cereal has less than 100 calories.";
-                    }
-                    else
-                    {
-                        calNote = "";
+                        Console.WriteLine(cereal);
                     }
                 }
-                Console.WriteLine("These cereals have a serving size of one or more.");
-                foreach (var cereal in CerealName)
+            Console.ForegroundColor = ConsoleColor.Green;  
+            Console.WriteLine("Cereals with 100 calories or less. >>");
+            Console.ForegroundColor = ConsoleColor.White;
+            foreach (Cereal cereal in CerealName)
                 {
-                    Console.WriteLine(cereal + "" + calNote);
-                }
+                    if (cereal.Calories <= 100)
+                    {
+                        Console.WriteLine(cereal);
+                    }
 
-            }
+                }
+           
         }
     }
 }
